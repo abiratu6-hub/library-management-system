@@ -403,7 +403,54 @@ function searchBooks() {
         results.length +
         " book(s) found.";
 }
+// ==========================================
+// 8. BOOK AVAILABILITY
+// ==========================================
 
+function updateAvailabilityTable() {
+
+    let tableBody =
+        document.getElementById("availabilityTableBody");
+
+    if (!tableBody) {
+        return;
+    }
+
+    tableBody.innerHTML = "";
+
+    libraryBooks.forEach(function(book) {
+
+        let row =
+            tableBody.insertRow();
+
+        row.insertCell(0).textContent =
+            book.id;
+
+        row.insertCell(1).textContent =
+            book.title;
+
+        row.insertCell(2).textContent =
+            book.quantity;
+
+        row.insertCell(3).textContent =
+            book.available;
+
+        let statusCell =
+            row.insertCell(4);
+
+        if (book.available > 0) {
+
+            statusCell.textContent =
+                "Available";
+
+        } else {
+
+            statusCell.textContent =
+                "Not Available";
+        }
+
+    });
+}
 
 // ==========================================
 // 8. INITIALIZE AVAILABILITY TABLE
