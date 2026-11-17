@@ -451,19 +451,8 @@ function updateAvailabilityTable() {
 
     });
 }
-
 // ==========================================
 // 8. INITIALIZE AVAILABILITY TABLE
-// ==========================================
-
-updateAvailabilityTable();
-// ==========================================
-// 8. INITIALIZE AVAILABILITY TABLE
-// ==========================================
-
-updateAvailabilityTable();
-// ==========================================
-// 9. INITIALIZE AVAILABILITY TABLE
 // ==========================================
 
 updateAvailabilityTable();
