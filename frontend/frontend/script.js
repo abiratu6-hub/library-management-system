@@ -1,22 +1,38 @@
 ```javascript
-// Library Management System
-// Basic frontend interaction
+// ==========================================
+// LIBRARY MANAGEMENT SYSTEM
+// ==========================================
 
-// Sample dashboard data
+
+// ==========================================
+// 1. DASHBOARD
+// ==========================================
+
 let books = 0;
 let users = 0;
 let borrowed = 0;
-
-// Calculate available books
 let available = books - borrowed;
 
-// Display dashboard information
-document.getElementById("bookCount").textContent = books;
-document.getElementById("userCount").textContent = users;
-document.getElementById("borrowedCount").textContent = borrowed;
-document.getElementById("availableCount").textContent = available;
-``````javascript
-// User Registration
+if (document.getElementById("bookCount")) {
+    document.getElementById("bookCount").textContent = books;
+}
+
+if (document.getElementById("userCount")) {
+    document.getElementById("userCount").textContent = users;
+}
+
+if (document.getElementById("borrowedCount")) {
+    document.getElementById("borrowedCount").textContent = borrowed;
+}
+
+if (document.getElementById("availableCount")) {
+    document.getElementById("availableCount").textContent = available;
+}
+
+
+// ==========================================
+// 2. USER REGISTRATION
+// ==========================================
 
 const userForm = document.getElementById("userForm");
 
@@ -46,6 +62,77 @@ if (userForm) {
             "User registered successfully.";
 
         userForm.reset();
+    });
+}
+
+
+// ==========================================
+// 3. BOOK REGISTRATION AND UPDATE
+// ==========================================
+
+const bookForm = document.getElementById("bookForm");
+
+if (bookForm) {
+
+    bookForm.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        let bookId = document.getElementById("bookId").value;
+        let title = document.getElementById("title").value;
+        let author = document.getElementById("author").value;
+        let category = document.getElementById("category").value;
+        let quantity = document.getElementById("quantity").value;
+
+        let tableBody = document.getElementById("bookTableBody");
+
+        let row = tableBody.insertRow();
+
+        row.insertCell(0).textContent = bookId;
+        row.insertCell(1).textContent = title;
+        row.insertCell(2).textContent = author;
+        row.insertCell(3).textContent = category;
+        row.insertCell(4).textContent = quantity;
+        row.insertCell(5).textContent = quantity;
+
+        // Update button
+        let actionCell = row.insertCell(6);
+
+        let updateButton = document.createElement("button");
+
+        updateButton.textContent = "Update";
+        updateButton.className = "update-btn";
+
+        updateButton.onclick = function() {
+
+            let newTitle = prompt(
+                "Enter new book title:",
+                row.cells[1].textContent
+            );
+
+            if (newTitle !== null && newTitle !== "") {
+                row.cells[1].textContent = newTitle;
+            }
+
+            let newQuantity = prompt(
+                "Enter new quantity:",
+                row.cells[4].textContent
+            );
+
+            if (newQuantity !== null && newQuantity !== "") {
+
+                row.cells[4].textContent = newQuantity;
+
+                row.cells[5].textContent = newQuantity;
+            }
+        };
+
+        actionCell.appendChild(updateButton);
+
+        document.getElementById("bookMessage").textContent =
+            "Book registered successfully.";
+
+        bookForm.reset();
     });
 }
 ```
