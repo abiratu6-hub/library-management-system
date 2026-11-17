@@ -96,7 +96,6 @@ if (bookForm) {
         row.insertCell(4).textContent = quantity;
         row.insertCell(5).textContent = quantity;
 
-        // Update button
         let actionCell = row.insertCell(6);
 
         let updateButton = document.createElement("button");
@@ -140,132 +139,7 @@ if (bookForm) {
 
 
 // ==========================================
-// 4. BORROWING AND RETURNING
-// ==========================================
-
-const borrowForm = document.getElementById("borrowForm");
-
-if (borrowForm) {
-
-    borrowForm.addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
-        let userId =
-            document.getElementById("borrowUserId").value;
-
-        let bookId =
-            document.getElementById("borrowBookId").value;
-
-        let borrowDate =
-            document.getElementById("borrowDate").value;
-
-        let tableBody =
-            document.getElementById("borrowTableBody");
-
-        // ==================================
-        // Check Book Availability
-        // ==================================
-
-        let book = libraryBooks.find(function(book) {
-
-            return book.id.toLowerCase() ===
-                bookId.toLowerCase();
-
-        });
-
-
-        // Book not found
-        if (!book) {
-
-            document.getElementById("borrowMessage").textContent =
-                "Book not found.";
-
-            return;
-        }
-
-
-        // Book unavailable
-        if (book.available <= 0) {
-
-            document.getElementById("borrowMessage").textContent =
-                "Book is not available.";
-
-            return;
-        }
-
-
-        // ==================================
-        // Create Borrowing Record
-        // ==================================
-
-        let row = tableBody.insertRow();
-
-        row.insertCell(0).textContent = userId;
-        row.insertCell(1).textContent = bookId;
-        row.insertCell(2).textContent = borrowDate;
-
-        // Status
-        row.insertCell(3).textContent = "Borrowed";
-
-        // Return button
-        let actionCell = row.insertCell(4);
-
-        let returnButton =
-            document.createElement("button");
-
-        returnButton.textContent = "Return";
-        returnButton.className = "return-btn";
-
-
-        // ==================================
-        // Return Book
-        // ==================================
-
-        returnButton.onclick = function() {
-
-            book.available++;
-
-            row.cells[3].textContent =
-                "Returned";
-
-            returnButton.disabled = true;
-
-            returnButton.textContent =
-                "Returned";
-
-            document.getElementById("borrowMessage").textContent =
-                "Book returned successfully.";
-
-            updateAvailabilityTable();
-        };
-
-
-        actionCell.appendChild(returnButton);
-
-
-        // ==================================
-        // Decrease Available Quantity
-        // ==================================
-
-        book.available--;
-
-
-        document.getElementById("borrowMessage").textContent =
-            "Book borrowed successfully.";
-
-
-        // Update availability table
-        updateAvailabilityTable();
-
-
-        borrowForm.reset();
-    });
-}
-
-
-// ==========================================
-// 5. SAMPLE LIBRARY BOOKS
+// 4. SAMPLE LIBRARY BOOKS
 // ==========================================
 
 let libraryBooks = [
@@ -297,6 +171,100 @@ let libraryBooks = [
         available: 4
     }
 ];
+
+
+// ==========================================
+// 5. BORROWING AND RETURNING
+// ==========================================
+
+const borrowForm = document.getElementById("borrowForm");
+
+if (borrowForm) {
+
+    borrowForm.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        let userId =
+            document.getElementById("borrowUserId").value;
+
+        let bookId =
+            document.getElementById("borrowBookId").value;
+
+        let borrowDate =
+            document.getElementById("borrowDate").value;
+
+        let book = libraryBooks.find(function(book) {
+
+            return book.id.toLowerCase() ===
+                bookId.toLowerCase();
+
+        });
+
+        if (!book) {
+
+            document.getElementById("borrowMessage").textContent =
+                "Book not found.";
+
+            return;
+        }
+
+        if (book.available <= 0) {
+
+            document.getElementById("borrowMessage").textContent =
+                "Book is not available.";
+
+            return;
+        }
+
+        let tableBody =
+            document.getElementById("borrowTableBody");
+
+        let row = tableBody.insertRow();
+
+        row.insertCell(0).textContent = userId;
+        row.insertCell(1).textContent = bookId;
+        row.insertCell(2).textContent = borrowDate;
+        row.insertCell(3).textContent = "Borrowed";
+
+        let actionCell = row.insertCell(4);
+
+        let returnButton =
+            document.createElement("button");
+
+        returnButton.textContent = "Return";
+        returnButton.className = "return-btn";
+
+        returnButton.onclick = function() {
+
+            book.available++;
+
+            row.cells[3].textContent =
+                "Returned";
+
+            returnButton.disabled = true;
+
+            returnButton.textContent =
+                "Returned";
+
+            document.getElementById("borrowMessage").textContent =
+                "Book returned successfully.";
+
+            updateAvailabilityTable();
+        };
+
+        actionCell.appendChild(returnButton);
+
+        book.available--;
+
+        document.getElementById("borrowMessage").textContent =
+            "Book borrowed successfully.";
+
+        updateAvailabilityTable();
+
+        borrowForm.reset();
+    });
+}
 
 
 // ==========================================
@@ -349,10 +317,6 @@ function updateAvailabilityTable() {
 }
 
 
-// Update availability table when page opens
-updateAvailabilityTable();
-
-
 // ==========================================
 // 7. BOOK SEARCH
 // ==========================================
@@ -372,11 +336,8 @@ function searchBooks() {
     let message =
         document.getElementById("searchMessage");
 
-    // Clear previous results
     tableBody.innerHTML = "";
 
-
-    // Check search input
     if (searchValue === "") {
 
         message.textContent =
@@ -385,8 +346,6 @@ function searchBooks() {
         return;
     }
 
-
-    // Search books
     let results =
         libraryBooks.filter(function(book) {
 
@@ -397,8 +356,6 @@ function searchBooks() {
 
         });
 
-
-    // No result
     if (results.length === 0) {
 
         message.textContent =
@@ -407,8 +364,6 @@ function searchBooks() {
         return;
     }
 
-
-    // Display results
     results.forEach(function(book) {
 
         let row =
@@ -429,7 +384,6 @@ function searchBooks() {
         row.insertCell(4).textContent =
             book.quantity;
 
-
         if (book.available > 0) {
 
             row.insertCell(5).textContent =
@@ -445,8 +399,14 @@ function searchBooks() {
 
     });
 
-
     message.textContent =
         results.length +
         " book(s) found.";
 }
+
+
+// ==========================================
+// 8. INITIALIZE AVAILABILITY TABLE
+// ==========================================
+
+updateAvailabilityTable();
