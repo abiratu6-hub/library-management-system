@@ -136,3 +136,68 @@ if (bookForm) {
     });
 }
 ```
+```javascript
+// ==========================================
+// 4. BORROWING AND RETURNING
+// ==========================================
+
+const borrowForm = document.getElementById("borrowForm");
+
+if (borrowForm) {
+
+    borrowForm.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        let userId =
+            document.getElementById("borrowUserId").value;
+
+        let bookId =
+            document.getElementById("borrowBookId").value;
+
+        let borrowDate =
+            document.getElementById("borrowDate").value;
+
+        let tableBody =
+            document.getElementById("borrowTableBody");
+
+        // Create new borrowing record
+        let row = tableBody.insertRow();
+
+        row.insertCell(0).textContent = userId;
+        row.insertCell(1).textContent = bookId;
+        row.insertCell(2).textContent = borrowDate;
+
+        // Status
+        row.insertCell(3).textContent = "Borrowed";
+
+        // Return button
+        let actionCell = row.insertCell(4);
+
+        let returnButton =
+            document.createElement("button");
+
+        returnButton.textContent = "Return";
+        returnButton.className = "return-btn";
+
+        returnButton.onclick = function() {
+
+            row.cells[3].textContent = "Returned";
+
+            returnButton.disabled = true;
+
+            returnButton.textContent = "Returned";
+
+            document.getElementById("borrowMessage").textContent =
+                "Book returned successfully.";
+        };
+
+        actionCell.appendChild(returnButton);
+
+        document.getElementById("borrowMessage").textContent =
+            "Book borrowed successfully.";
+
+        borrowForm.reset();
+    });
+}
+```
