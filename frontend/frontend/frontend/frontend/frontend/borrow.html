@@ -1,0 +1,122 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Borrow and Return - Library Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Library Management System</h1>
+        <p>Borrowing and Returning Books</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="books.html">Books</a>
+        <a href="users.html">Users</a>
+        <a href="borrow.html">Borrow / Return</a>
+        <a href="search.html">Search Books</a>
+    </nav>
+
+    <!-- Main -->
+    <main>
+
+        <!-- Borrow Form -->
+        <div class="form-container">
+
+            <h2>Borrow a Book</h2>
+
+            <form id="borrowForm">
+
+                <label for="borrowUserId">User ID</label>
+
+                <input
+                    type="text"
+                    id="borrowUserId"
+                    placeholder="Enter user ID"
+                    required
+                >
+
+                <label for="borrowBookId">Book ID</label>
+
+                <input
+                    type="text"
+                    id="borrowBookId"
+                    placeholder="Enter book ID"
+                    required
+                >
+
+                <label for="borrowDate">Borrow Date</label>
+
+                <input
+                    type="date"
+                    id="borrowDate"
+                    required
+                >
+
+                <button type="submit">
+                    Borrow Book
+                </button>
+
+            </form>
+
+            <p id="borrowMessage"></p>
+
+        </div>
+
+
+        <!-- Borrowing Records -->
+        <section class="table-container">
+
+            <h2>Borrowing Records</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>User ID</th>
+                        <th>Book ID</th>
+                        <th>Borrow Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="borrowTableBody">
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            Library Management System © 2026
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+```
