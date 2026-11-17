@@ -1,1 +1,95 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Library Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Library Management System</h1>
+        <p>Manage Books, Users and Borrowing</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="books.html">Books</a>
+        <a href="users.html">Users</a>
+        <a href="borrow.html">Borrow / Return</a>
+        <a href="search.html">Search Books</a>
+    </nav>
+
+    <!-- Dashboard -->
+    <main>
+
+        <h2>Dashboard</h2>
+
+        <div class="dashboard">
+
+            <!-- Books -->
+            <div class="card">
+                <h3>Books</h3>
+                <p id="bookCount">0</p>
+                <a href="books.html">Manage Books</a>
+            </div>
+
+            <!-- Users -->
+            <div class="card">
+                <h3>Users</h3>
+                <p id="userCount">0</p>
+                <a href="users.html">Manage Users</a>
+            </div>
+
+            <!-- Borrowed Books -->
+            <div class="card">
+                <h3>Borrowed</h3>
+                <p id="borrowedCount">0</p>
+                <a href="borrow.html">Borrow / Return</a>
+            </div>
+
+            <!-- Available Books -->
+            <div class="card">
+                <h3>Available</h3>
+                <p id="availableCount">0</p>
+                <a href="search.html">Check Books</a>
+            </div>
+
+        </div>
+
+        <!-- System Information -->
+        <section class="info">
+            <h2>Library System</h2>
+
+            <p>
+                This system helps the librarian manage books, users,
+                borrowing and returning records.
+            </p>
+
+            <p>
+                The availability of books can be checked quickly
+                through the system.
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Library Management System © 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+```
