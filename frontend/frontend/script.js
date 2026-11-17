@@ -462,3 +462,8 @@ updateAvailabilityTable();
 // ==========================================
 
 updateAvailabilityTable();
+// ==========================================
+// 9. INITIALIZE AVAILABILITY TABLE
+// ==========================================
+
+updateAvailabilityTable();
