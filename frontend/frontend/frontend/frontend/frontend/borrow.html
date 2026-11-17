@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,110 +12,138 @@
 
 <body>
 
-    <!-- Header -->
-    <header>
-        <h1>Library Management System</h1>
-        <p>Borrowing and Returning Books</p>
-    </header>
+<header>
+    <h1>Library Management System</h1>
+    <p>Borrow and Return Books</p>
+</header>
 
-    <!-- Navigation -->
-    <nav>
-        <a href="index.html">Dashboard</a>
-        <a href="books.html">Books</a>
-        <a href="users.html">Users</a>
-        <a href="borrow.html">Borrow / Return</a>
-        <a href="search.html">Search Books</a>
-    </nav>
+<nav>
+    <a href="index.html">Dashboard</a>
+    <a href="books.html">Books</a>
+    <a href="users.html">Users</a>
+    <a href="borrow.html">Borrow / Return</a>
+    <a href="search.html">Search Books</a>
+</nav>
 
-    <!-- Main -->
-    <main>
+<main>
 
-        <!-- Borrow Form -->
-        <div class="form-container">
+    <!-- Borrow Form -->
+    <div class="form-container">
 
-            <h2>Borrow a Book</h2>
+        <h2>Borrow Book</h2>
 
-            <form id="borrowForm">
+        <form id="borrowForm">
 
-                <label for="borrowUserId">User ID</label>
+            <label for="borrowUserId">
+                User ID
+            </label>
 
-                <input
-                    type="text"
-                    id="borrowUserId"
-                    placeholder="Enter user ID"
-                    required
-                >
+            <input
+                type="text"
+                id="borrowUserId"
+                placeholder="Enter User ID"
+                required
+            >
 
-                <label for="borrowBookId">Book ID</label>
+            <label for="borrowBookId">
+                Book ID
+            </label>
 
-                <input
-                    type="text"
-                    id="borrowBookId"
-                    placeholder="Enter book ID"
-                    required
-                >
+            <input
+                type="text"
+                id="borrowBookId"
+                placeholder="Enter Book ID"
+                required
+            >
 
-                <label for="borrowDate">Borrow Date</label>
+            <label for="borrowDate">
+                Borrow Date
+            </label>
 
-                <input
-                    type="date"
-                    id="borrowDate"
-                    required
-                >
+            <input
+                type="date"
+                id="borrowDate"
+                required
+            >
 
-                <button type="submit">
-                    Borrow Book
-                </button>
+            <button type="submit">
+                Borrow Book
+            </button>
 
-            </form>
+        </form>
 
-            <p id="borrowMessage"></p>
+        <p id="borrowMessage"></p>
 
-        </div>
-
-
-        <!-- Borrowing Records -->
-        <section class="table-container">
-
-            <h2>Borrowing Records</h2>
-
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>User ID</th>
-                        <th>Book ID</th>
-                        <th>Borrow Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-
-                </thead>
-
-                <tbody id="borrowTableBody">
-                </tbody>
-
-            </table>
-
-        </section>
-
-    </main>
+    </div>
 
 
-    <!-- Footer -->
-    <footer>
+    <!-- Availability -->
+    <section class="table-container">
 
-        <p>
-            Library Management System © 2026
-        </p>
+        <h2>Book Availability</h2>
 
-    </footer>
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Book ID</th>
+                    <th>Book Title</th>
+                    <th>Total Quantity</th>
+                    <th>Available</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="availabilityTableBody">
+            </tbody>
+
+        </table>
+
+    </section>
 
 
-    <script src="script.js"></script>
+    <!-- Borrowing Records -->
+    <section class="table-container">
+
+        <h2>Borrowing Records</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>User ID</th>
+                    <th>Book ID</th>
+                    <th>Borrow Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="borrowTableBody">
+            </tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        Library Management System © 2026
+    </p>
+
+</footer>
+
+
+<script src="script.js"></script>
 
 </body>
 
 </html>
-```
