@@ -1,4 +1,3 @@
-```javascript
 // ==========================================
 // LIBRARY MANAGEMENT SYSTEM
 // ==========================================
@@ -82,7 +81,9 @@ if (bookForm) {
         let title = document.getElementById("title").value;
         let author = document.getElementById("author").value;
         let category = document.getElementById("category").value;
-        let quantity = document.getElementById("quantity").value;
+        let quantity = parseInt(
+            document.getElementById("quantity").value
+        );
 
         let tableBody = document.getElementById("bookTableBody");
 
@@ -121,9 +122,10 @@ if (bookForm) {
 
             if (newQuantity !== null && newQuantity !== "") {
 
-                row.cells[4].textContent = newQuantity;
+                let quantityNumber = parseInt(newQuantity);
 
-                row.cells[5].textContent = newQuantity;
+                row.cells[4].textContent = quantityNumber;
+                row.cells[5].textContent = quantityNumber;
             }
         };
 
@@ -135,8 +137,8 @@ if (bookForm) {
         bookForm.reset();
     });
 }
-```
-```javascript
+
+
 // ==========================================
 // 4. BORROWING AND RETURNING
 // ==========================================
@@ -161,7 +163,42 @@ if (borrowForm) {
         let tableBody =
             document.getElementById("borrowTableBody");
 
-        // Create new borrowing record
+        // ==================================
+        // Check Book Availability
+        // ==================================
+
+        let book = libraryBooks.find(function(book) {
+
+            return book.id.toLowerCase() ===
+                bookId.toLowerCase();
+
+        });
+
+
+        // Book not found
+        if (!book) {
+
+            document.getElementById("borrowMessage").textContent =
+                "Book not found.";
+
+            return;
+        }
+
+
+        // Book unavailable
+        if (book.available <= 0) {
+
+            document.getElementById("borrowMessage").textContent =
+                "Book is not available.";
+
+            return;
+        }
+
+
+        // ==================================
+        // Create Borrowing Record
+        // ==================================
+
         let row = tableBody.insertRow();
 
         row.insertCell(0).textContent = userId;
@@ -180,33 +217,59 @@ if (borrowForm) {
         returnButton.textContent = "Return";
         returnButton.className = "return-btn";
 
+
+        // ==================================
+        // Return Book
+        // ==================================
+
         returnButton.onclick = function() {
 
-            row.cells[3].textContent = "Returned";
+            book.available++;
+
+            row.cells[3].textContent =
+                "Returned";
 
             returnButton.disabled = true;
 
-            returnButton.textContent = "Returned";
+            returnButton.textContent =
+                "Returned";
 
             document.getElementById("borrowMessage").textContent =
                 "Book returned successfully.";
+
+            updateAvailabilityTable();
         };
 
+
         actionCell.appendChild(returnButton);
+
+
+        // ==================================
+        // Decrease Available Quantity
+        // ==================================
+
+        book.available--;
+
 
         document.getElementById("borrowMessage").textContent =
             "Book borrowed successfully.";
 
+
+        // Update availability table
+        updateAvailabilityTable();
+
+
         borrowForm.reset();
     });
 }
-```
+
+
 // ==========================================
-// 5. BOOK SEARCH
+// 5. SAMPLE LIBRARY BOOKS
 // ==========================================
 
-// Sample library books
 let libraryBooks = [
+
     {
         id: "B001",
         title: "Database Systems",
@@ -236,6 +299,64 @@ let libraryBooks = [
 ];
 
 
+// ==========================================
+// 6. BOOK AVAILABILITY
+// ==========================================
+
+function updateAvailabilityTable() {
+
+    let tableBody =
+        document.getElementById("availabilityTableBody");
+
+    if (!tableBody) {
+        return;
+    }
+
+    tableBody.innerHTML = "";
+
+    libraryBooks.forEach(function(book) {
+
+        let row =
+            tableBody.insertRow();
+
+        row.insertCell(0).textContent =
+            book.id;
+
+        row.insertCell(1).textContent =
+            book.title;
+
+        row.insertCell(2).textContent =
+            book.quantity;
+
+        row.insertCell(3).textContent =
+            book.available;
+
+        let statusCell =
+            row.insertCell(4);
+
+        if (book.available > 0) {
+
+            statusCell.textContent =
+                "Available";
+
+        } else {
+
+            statusCell.textContent =
+                "Not Available";
+        }
+
+    });
+}
+
+
+// Update availability table when page opens
+updateAvailabilityTable();
+
+
+// ==========================================
+// 7. BOOK SEARCH
+// ==========================================
+
 function searchBooks() {
 
     let searchType =
@@ -254,6 +375,7 @@ function searchBooks() {
     // Clear previous results
     tableBody.innerHTML = "";
 
+
     // Check search input
     if (searchValue === "") {
 
@@ -265,17 +387,18 @@ function searchBooks() {
 
 
     // Search books
-    let results = libraryBooks.filter(function(book) {
+    let results =
+        libraryBooks.filter(function(book) {
 
-        return book[searchType]
-            .toString()
-            .toLowerCase()
-            .includes(searchValue);
+            return book[searchType]
+                .toString()
+                .toLowerCase()
+                .includes(searchValue);
 
-    });
+        });
 
 
-    // Display results
+    // No result
     if (results.length === 0) {
 
         message.textContent =
@@ -285,6 +408,7 @@ function searchBooks() {
     }
 
 
+    // Display results
     results.forEach(function(book) {
 
         let row =
@@ -305,22 +429,24 @@ function searchBooks() {
         row.insertCell(4).textContent =
             book.quantity;
 
+
         if (book.available > 0) {
 
             row.insertCell(5).textContent =
-                "Available (" + book.available + ")";
+                "Available (" +
+                book.available +
+                ")";
 
         } else {
 
             row.insertCell(5).textContent =
                 "Not Available";
-
         }
 
     });
 
 
     message.textContent =
-        results.length + " book(s) found.";
-
+        results.length +
+        " book(s) found.";
 }
