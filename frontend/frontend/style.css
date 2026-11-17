@@ -288,3 +288,17 @@ tr:nth-child(even) {
     font-weight: bold;
 }
 ```
+/* Book Update Button */
+
+.update-btn {
+    background: #1f4e79;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.update-btn:hover {
+    background: #2f6f9f;
+}
