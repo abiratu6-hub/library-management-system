@@ -1,0 +1,332 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search Books - Library Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Library Management System</h1>
+        <p>Search Books</p>
+    </header>
+
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="books.html">Books</a>
+        <a href="users.html">Users</a>
+        <a href="borrow.html">Borrow / Return</a>
+        <a href="search.html">Search Books</a>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Search Section -->
+        <div class="form-container">
+
+            <h2>Search Library Books</h2>
+
+            <label for="searchType">
+                Search By
+            </label>
+
+            <select id="searchType">
+
+                <option value="title">
+                    Book Title
+                </option>
+
+                <option value="author">
+                    Author
+                </option>
+
+                <option value="category">
+                    Category
+                </option>
+
+            </select>
+
+
+            <label for="searchInput">
+                Search
+            </label>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Enter search text..."
+            >
+
+            <button
+                type="button"
+                onclick="searchBooks()">
+                Search Book
+            </button>
+
+        </div>
+
+
+        <!-- Search Results -->
+        <section class="table-container">
+
+            <h2>Search Results</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Availability</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="searchTableBody">
+                </tbody>
+
+            </table>
+
+            <p id="searchMessage"></p>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            Library Management System © 2026
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+```
+
+### 2. `style.css` keessatti
+
+Form/table design keenya duraan jira. Kanaaf **search button** qofaaf kana `style.css` dhuma irratti dabali:
+
+:::writing{variant="document" id="41735" title="Search CSS"}
+```css
+/* Search Button */
+
+.form-container button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 12px;
+    background: #1f4e79;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-container button:hover {
+    background: #2f6f9f;
+}
+
+#searchMessage {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+}
+```
+
+Commit message:
+
+```text
+Add book search interface
+```
+
+### 3. Amma `script.js`
+
+**Code duraan jiru hin haqin.** Gara dhuma `script.js` deemii kana itti dabali:
+
+```javascript
+// ==========================================
+// 5. BOOK SEARCH
+// ==========================================
+
+// Sample library books
+let libraryBooks = [
+    {
+        id: "B001",
+        title: "Database Systems",
+        author: "Thomas Connolly",
+        category: "Computer Science",
+        quantity: 3,
+        available: 3
+    },
+
+    {
+        id: "B002",
+        title: "Computer Networks",
+        author: "Andrew Tanenbaum",
+        category: "Computer Science",
+        quantity: 2,
+        available: 1
+    },
+
+    {
+        id: "B003",
+        title: "Engineering Mathematics",
+        author: "John Bird",
+        category: "Mathematics",
+        quantity: 4,
+        available: 4
+    }
+];
+
+
+function searchBooks() {
+
+    let searchType =
+        document.getElementById("searchType").value;
+
+    let searchValue =
+        document.getElementById("searchInput").value
+        .toLowerCase();
+
+    let tableBody =
+        document.getElementById("searchTableBody");
+
+    let message =
+        document.getElementById("searchMessage");
+
+    // Clear previous results
+    tableBody.innerHTML = "";
+
+    // Check search input
+    if (searchValue === "") {
+
+        message.textContent =
+            "Please enter a search value.";
+
+        return;
+    }
+
+
+    // Search books
+    let results = libraryBooks.filter(function(book) {
+
+        return book[searchType]
+            .toString()
+            .toLowerCase()
+            .includes(searchValue);
+
+    });
+
+
+    // Display results
+    if (results.length === 0) {
+
+        message.textContent =
+            "No book found.";
+
+        return;
+    }
+
+
+    results.forEach(function(book) {
+
+        let row =
+            tableBody.insertRow();
+
+        row.insertCell(0).textContent =
+            book.id;
+
+        row.insertCell(1).textContent =
+            book.title;
+
+        row.insertCell(2).textContent =
+            book.author;
+
+        row.insertCell(3).textContent =
+            book.category;
+
+        row.insertCell(4).textContent =
+            book.quantity;
+
+        if (book.available > 0) {
+
+            row.insertCell(5).textContent =
+                "Available (" + book.available + ")";
+
+        } else {
+
+            row.insertCell(5).textContent =
+                "Not Available";
+
+        }
+
+    });
+
+
+    message.textContent =
+        results.length + " book(s) found.";
+
+}
+```
+
+Commit message:
+
+```text
+Add book search functionality
+```
+
+### Amma Step 8 xumurame
+
+Search'n:
+
+- 📖 **Title** irratti barbaada
+- ✍️ **Author** irratti barbaada
+- 📚 **Category** irratti barbaada
+- 🔎 Search result agarsiisa
+- ✅ Available yoo jiraate agarsiisa
+- ❌ Yoo hin jirre `Not Available` agarsiisa
+
+Kana jechuun proposal kee keessaa **Book Search Module** hojjetameera.
+
+### Tartiiba keenya amma
+
+```text
+1. Dashboard                 ✅
+2. Librarian Login           ✅
+3. User Registration         ✅
+4. Book Registration         ✅
+5. Book Updating             ✅
+6. Borrowing & Returning     ✅
+7. Book Search               ✅
+8. Book Availability         ⏭️
+9. PHP Backend
+10. MySQL Database
+11. Integration & Testing
+```
+
+**Step 9** irratti immoo `Book Availability` fi borrowing waliin walitti hidhuu irratti hojjenna; kana booda frontend keenya keessaa modules ijoo proposal keessatti tarreeffaman ni xumuramu.
