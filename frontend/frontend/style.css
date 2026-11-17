@@ -302,3 +302,19 @@ tr:nth-child(even) {
 .update-btn:hover {
     background: #2f6f9f;
 }
+```css
+/* Return Button */
+
+.return-btn {
+    background: #555;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.return-btn:hover {
+    background: #333;
+}
+```
