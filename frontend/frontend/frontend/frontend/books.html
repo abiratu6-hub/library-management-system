@@ -1,0 +1,269 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Management - Library Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Library Management System</h1>
+        <p>Book Registration and Management</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="books.html">Books</a>
+        <a href="users.html">Users</a>
+        <a href="borrow.html">Borrow / Return</a>
+        <a href="search.html">Search Books</a>
+    </nav>
+
+    <!-- Main -->
+    <main>
+
+        <!-- Book Registration Form -->
+        <div class="form-container">
+
+            <h2>Register New Book</h2>
+
+            <form id="bookForm">
+
+                <label for="bookId">Book ID</label>
+                <input
+                    type="text"
+                    id="bookId"
+                    placeholder="Enter book ID"
+                    required
+                >
+
+                <label for="title">Book Title</label>
+                <input
+                    type="text"
+                    id="title"
+                    placeholder="Enter book title"
+                    required
+                >
+
+                <label for="author">Author</label>
+                <input
+                    type="text"
+                    id="author"
+                    placeholder="Enter author name"
+                    required
+                >
+
+                <label for="category">Category</label>
+                <select id="category" required>
+
+                    <option value="">Select category</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Reference">Reference</option>
+                    <option value="Other">Other</option>
+
+                </select>
+
+                <label for="quantity">Quantity</label>
+                <input
+                    type="number"
+                    id="quantity"
+                    min="1"
+                    placeholder="Enter quantity"
+                    required
+                >
+
+                <button type="submit">Register Book</button>
+
+            </form>
+
+            <p id="bookMessage"></p>
+
+        </div>
+
+        <!-- Book List -->
+        <section class="table-container">
+
+            <h2>Registered Books</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Book ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Available</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="bookTableBody">
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Library Management System © 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+```
+
+### 3. `style.css` keessatti
+
+Wanti guddaan duraan qabnu form/table CSS waan ta'eef, **update button** qofaaf kana `style.css` dhuma irratti dabali:
+
+:::writing{variant="document" id="63184" title="Book Management CSS"}
+```css
+/* Book Update Button */
+
+.update-btn {
+    background: #1f4e79;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.update-btn:hover {
+    background: #2f6f9f;
+}
+```
+
+Commit message:
+
+```text
+Add book management styling
+```
+
+### 4. Amma `script.js`
+
+`frontend/script.js` banii, **dhuma irratti** code kana dabali:
+
+```javascript
+// Book Registration
+
+const bookForm = document.getElementById("bookForm");
+
+if (bookForm) {
+
+    bookForm.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        let bookId = document.getElementById("bookId").value;
+        let title = document.getElementById("title").value;
+        let author = document.getElementById("author").value;
+        let category = document.getElementById("category").value;
+        let quantity = document.getElementById("quantity").value;
+
+        let tableBody = document.getElementById("bookTableBody");
+
+        let row = tableBody.insertRow();
+
+        row.insertCell(0).textContent = bookId;
+        row.insertCell(1).textContent = title;
+        row.insertCell(2).textContent = author;
+        row.insertCell(3).textContent = category;
+        row.insertCell(4).textContent = quantity;
+        row.insertCell(5).textContent = quantity;
+
+        let actionCell = row.insertCell(6);
+
+        let updateButton = document.createElement("button");
+
+        updateButton.textContent = "Update";
+        updateButton.className = "update-btn";
+
+        updateButton.onclick = function() {
+
+            let newTitle = prompt(
+                "Enter new book title:",
+                title
+            );
+
+            if (newTitle !== null && newTitle !== "") {
+                row.cells[1].textContent = newTitle;
+            }
+
+            let newQuantity = prompt(
+                "Enter new quantity:",
+                quantity
+            );
+
+            if (newQuantity !== null && newQuantity !== "") {
+                row.cells[4].textContent = newQuantity;
+                row.cells[5].textContent = newQuantity;
+            }
+        };
+
+        actionCell.appendChild(updateButton);
+
+        document.getElementById("bookMessage").textContent =
+            "Book registered successfully.";
+
+        bookForm.reset();
+    });
+}
+```
+
+Commit message:
+
+```text
+Add book registration and update functionality
+```
+
+### Amma Step 6 xumurame
+
+Proposal kee waliin:
+
+- ✅ Book ID
+- ✅ Book Title
+- ✅ Author
+- ✅ Category
+- ✅ Quantity
+- ✅ Available quantity
+- ✅ Register Book
+- ✅ Update Book
+
+### Tartiiba keenya amma
+
+```text
+1. Dashboard              ✅
+2. Librarian Login        ✅
+3. User Registration      ✅
+4. Book Registration      ✅
+5. Book Updating          ✅
+6. Borrow / Return        ⏭️
+7. Search Books           ⏭️
+8. Book Availability      ⏭️
+9. PHP Backend
+10. MySQL Database
+11. Integration & Testing
+```
+
+**Step itti aanu = Borrowing & Returning Module**. Kun proposal kee keessatti module guddaa dha; `borrow.html` keessatti user tokko kitaaba tokko yeroo liqeeffatu fi yeroo deebisu galmeessina.
