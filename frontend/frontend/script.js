@@ -410,3 +410,8 @@ function searchBooks() {
 // ==========================================
 
 updateAvailabilityTable();
+// ==========================================
+// 8. INITIALIZE AVAILABILITY TABLE
+// ==========================================
+
+updateAvailabilityTable();
