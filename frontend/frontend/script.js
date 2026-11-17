@@ -201,3 +201,126 @@ if (borrowForm) {
     });
 }
 ```
+// ==========================================
+// 5. BOOK SEARCH
+// ==========================================
+
+// Sample library books
+let libraryBooks = [
+    {
+        id: "B001",
+        title: "Database Systems",
+        author: "Thomas Connolly",
+        category: "Computer Science",
+        quantity: 3,
+        available: 3
+    },
+
+    {
+        id: "B002",
+        title: "Computer Networks",
+        author: "Andrew Tanenbaum",
+        category: "Computer Science",
+        quantity: 2,
+        available: 1
+    },
+
+    {
+        id: "B003",
+        title: "Engineering Mathematics",
+        author: "John Bird",
+        category: "Mathematics",
+        quantity: 4,
+        available: 4
+    }
+];
+
+
+function searchBooks() {
+
+    let searchType =
+        document.getElementById("searchType").value;
+
+    let searchValue =
+        document.getElementById("searchInput").value
+        .toLowerCase();
+
+    let tableBody =
+        document.getElementById("searchTableBody");
+
+    let message =
+        document.getElementById("searchMessage");
+
+    // Clear previous results
+    tableBody.innerHTML = "";
+
+    // Check search input
+    if (searchValue === "") {
+
+        message.textContent =
+            "Please enter a search value.";
+
+        return;
+    }
+
+
+    // Search books
+    let results = libraryBooks.filter(function(book) {
+
+        return book[searchType]
+            .toString()
+            .toLowerCase()
+            .includes(searchValue);
+
+    });
+
+
+    // Display results
+    if (results.length === 0) {
+
+        message.textContent =
+            "No book found.";
+
+        return;
+    }
+
+
+    results.forEach(function(book) {
+
+        let row =
+            tableBody.insertRow();
+
+        row.insertCell(0).textContent =
+            book.id;
+
+        row.insertCell(1).textContent =
+            book.title;
+
+        row.insertCell(2).textContent =
+            book.author;
+
+        row.insertCell(3).textContent =
+            book.category;
+
+        row.insertCell(4).textContent =
+            book.quantity;
+
+        if (book.available > 0) {
+
+            row.insertCell(5).textContent =
+                "Available (" + book.available + ")";
+
+        } else {
+
+            row.insertCell(5).textContent =
+                "Not Available";
+
+        }
+
+    });
+
+
+    message.textContent =
+        results.length + " book(s) found.";
+
+}
